@@ -1,7 +1,18 @@
 package it.uniroma2.dicii.isw2.jcs.paramTests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import org.apache.jcs.JCS;
+import org.apache.jcs.access.exception.CacheException;
 import org.apache.jcs.engine.behavior.ICacheElement;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 
 import junit.framework.TestCase;
 
@@ -31,31 +42,53 @@ import junit.framework.TestCase;
  *
  */
 public class JCSCacheElementRetrievalUnitTest
-    extends TestCase
 {
+	private JCS jcs;
 
     /**
      *
      * @throws Exception
      */
-    public void testSimpleElementRetrieval()
-        throws Exception
-    {
-        /*JCS jcs = JCS.getInstance( "testCache1" );
-
-        jcs.put( "test_key", "test_data" );
-
-        long now = System.currentTimeMillis();
-        ICacheElement elem = jcs.getCacheElement( "test_key" );
-        assertEquals( "Name wasn't right", "testCache1", elem.getCacheName() );
-
-        long diff = now - elem.getElementAttributes().getCreateTime();
-        assertTrue( "Create time should have been at or after the call", diff >= 0 );*/
     	
-    	int a = 2;
-    	
-    	assertTrue(a == 2);
+    @Before
+    public void setUp() throws Exception {
+        configure();
+    }
+
+        // Configuration test parameters
+    private void configure() throws CacheException {
+        jcs = JCS.getInstance( "testCache1" );
 
     }
+    
+   
+    
+    public JCSCacheElementRetrievalUnitTest() {
+    	//this.items = 500;
+    }
+    
+    /*@Parameters
+    public static List<Object> data() {
+    	Object[] data = new String[]{"test_key", "test_data", null}; 
+        return Arrays.asList(data);
+    }
+    */
+
+    // A unit test for JUnit
+    @Test
+    public void testSimpleLoad() throws Exception { 
+
+        jcs.put( "test_key", "test_data" );
+    	long now = System.currentTimeMillis();
+        ICacheElement elem = jcs.getCacheElement( "test_key" );
+        assertEquals( "Name wasn't right", "testCache1", elem.getCacheName() );
+        long diff = now - elem.getElementAttributes().getCreateTime();
+        assertTrue( "Create time should have been at or after the call", diff >= 0 );
+    }    
+    
+    	
+    	
+
+    
 
 }

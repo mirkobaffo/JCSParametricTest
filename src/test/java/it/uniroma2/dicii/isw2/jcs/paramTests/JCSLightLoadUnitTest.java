@@ -17,7 +17,7 @@ import junit.framework.TestCase;
 @RunWith(Parameterized.class)
 public class JCSLightLoadUnitTest extends TestCase {
 
-	private int items;
+	private static int items = 20000;
 	private JCS jcs;
     
     // Test setup class
@@ -34,13 +34,13 @@ public class JCSLightLoadUnitTest extends TestCase {
     
     // Constructor for the TestSimpleLoad object
     public JCSLightLoadUnitTest(int items, String expected) {
-    	this.items = 999;
+    	//this.items = 500;
     }
     
     // Init test items array
     @Parameters
     public static Collection<Object[]> data() {
-    	Object[][] data = new Object[][]{ {999, null}, }; 
+    	Object[][] data = new Object[][]{ {items, null}, }; 
         return Arrays.asList(data);
     }
 
