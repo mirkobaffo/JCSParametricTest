@@ -1,0 +1,12 @@
+2021-06-14 13:06:52,125 INFO [CompositeCacheManager] - <Instance is null, creating with provided config>
+2021-06-14 13:06:52,128 INFO [CompositeCacheManager] - <Creating cache manager from config file: /TestSimpleLoad.ccf>
+2021-06-14 13:06:52,141 INFO [ThreadPoolManager] - <thread_pool.default PoolConfiguration = useBoundary = [true] boundarySize = [2000] maximumPoolSize = [150] minimumPoolSize = [4] keepAliveTime = [300000] whenBlockedPolicy = [RUN] startUpSize = [4]>
+2021-06-14 13:06:52,143 INFO [CompositeCacheConfigurator] - <Setting default auxiliaries to >
+2021-06-14 13:06:52,148 INFO [CompositeCacheConfigurator] - <setting defaultCompositeCacheAttributes to [ useLateral = true, useRemote = true, useDisk = true, maxObjs = 1000, maxSpoolPerRun = -1, diskUsagePattern = 0 ]>
+2021-06-14 13:06:52,148 INFO [CompositeCacheConfigurator] - <No special ElementAttribute class defined for key [jcs.default.elementattributes], using default class.>
+2021-06-14 13:06:52,149 INFO [CompositeCacheConfigurator] - <setting defaultElementAttributes to [ IS_LATERAL = true, IS_SPOOL = true, IS_REMOTE = true, IS_ETERNAL = true, MaxLifeSeconds = -1, IdleTime = -1, CreateTime = 1623668812149, LastAccessTime = 1623668812149, getTimeToLiveSeconds() = -1, createTime = 1623668812149 ]>
+2021-06-14 13:06:52,149 INFO [CompositeCacheConfigurator] - <No special ElementAttribute class defined for key [jcs.region.testCache1.elementattributes], using default class.>
+2021-06-14 13:06:52,176 INFO [LRUMemoryCache] - <initialized LRUMemoryCache for testCache1>
+2021-06-14 13:06:52,176 INFO [CompositeCache] - <Constructed cache with name [testCache1] and cache attributes [ useLateral = true, useRemote = true, useDisk = true, maxObjs = 20001, maxSpoolPerRun = -1, diskUsagePattern = 0 ]>
+2021-06-14 13:06:52,176 INFO [CompositeCacheConfigurator] - <Parsed regions [testCache1]>
+2021-06-14 13:06:52,176 INFO [CompositeCacheConfigurator] - <Finished configuration in 33 ms.>

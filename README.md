@@ -1,1 +1,1 @@
-# JCSparametricTests
+# mavenTravisJcsParametrizedTests
