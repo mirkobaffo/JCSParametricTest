@@ -44,44 +44,47 @@ import junit.framework.TestCase;
 public class JCSCacheElementRetrievalUnitTest
 {
 	private JCS jcs;
+	private String name;
+	private String value;
 
     /**
      *
      * @throws Exception
      */
     	
+	
+	
     @Before
     public void setUp() throws Exception {
         configure();
     }
-
+    
+    
         // Configuration test parameters
     private void configure() throws CacheException {
         jcs = JCS.getInstance( "testCache1" );
-
+        name = "test1";
+        value = "val1";
+        data(name, value, jcs);
     }
-    
-   
     
     public JCSCacheElementRetrievalUnitTest() {
-    	//this.items = 500;
     }
     
-    /*@Parameters
-    public static List<Object> data() {
-    	Object[] data = new String[]{"test_key", "test_data", null}; 
-        return Arrays.asList(data);
+    @Parameters
+    public static JCS data(String name, String value, JCS jcs) throws CacheException {
+    	jcs.put(name, value);
+    	return jcs;
     }
-    */
 
-    // A unit test for JUnit
+
+	// A unit test for JUnit
     @Test
     public void testSimpleLoad() throws Exception { 
 
-        jcs.put( "test_key", "test_data" );
     	long now = System.currentTimeMillis();
-        ICacheElement elem = jcs.getCacheElement( "test_key" );
-        assertEquals( "Name wasn't right", "testCache1", elem.getCacheName() );
+        ICacheElement elem = jcs.getCacheElement( "test1" );
+        assertEquals( "Name wasn't right", "val1", elem.getVal() );
         long diff = now - elem.getElementAttributes().getCreateTime();
         assertTrue( "Create time should have been at or after the call", diff >= 0 );
     }    
