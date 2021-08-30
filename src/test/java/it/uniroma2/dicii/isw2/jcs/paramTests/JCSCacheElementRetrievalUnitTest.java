@@ -1,20 +1,15 @@
 package it.uniroma2.dicii.isw2.jcs.paramTests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import org.apache.jcs.JCS;
+import org.apache.jcs.engine.behavior.ICacheElement;
+import org.junit.Test;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import junit.framework.TestCase;
+import org.junit.runner.RunWith;
+import junit.framework.TestCase;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-
-import org.apache.jcs.JCS;
-import org.apache.jcs.access.exception.CacheException;
-import org.apache.jcs.engine.behavior.ICacheElement;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
-
-import junit.framework.TestCase;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,63 +30,37 @@ import junit.framework.TestCase;
  * under the License.
  */
 
+@RunWith(Parameterized.class)
+public class JCSCacheElementRetrievalUnitTest extends TestCase {
 
+   private JCS jcs;
+   private String name;
+   private String obj;
 
-/**
- * @author Aaron Smuts
- *
- */
-public class JCSCacheElementRetrievalUnitTest
-{
-	private JCS jcs;
-	private String name;
-	private String value;
-
-    /**
-     *
-     * @throws Exception
-     */
-    	
-	
-	
-    @Before
-    public void setUp() throws Exception {
-        configure();
-    }
-    
-    
-        // Configuration test parameters
-    private void configure() throws CacheException {
-        jcs = JCS.getInstance( "testCache1" );
-        name = "test1";
-        value = "val1";
-        data(name, value, jcs);
-    }
-    
-    public JCSCacheElementRetrievalUnitTest() {
-    }
-    
     @Parameters
-    public static JCS data(String name, String value, JCS jcs) throws CacheException {
-    	jcs.put(name, value);
-    	return jcs;
+    public static Collection<Object[]> configure() throws Exception{
+        return Arrays.asList(new Object[][]{
+                //proviamo anche stringhe vuote per vedere se il test passa
+                {JCS.getInstance( "testCache1" ), "test_key" , "test_data"},{JCS.getInstance( "testCache1" ), "" , ""}
+        });
     }
 
+    public JCSCacheElementRetrievalUnitTest(JCS jcs, String name, String obj){
+         this.jcs = jcs;
+         this.name = name;
+         this.obj = obj;
+    }
 
-	// A unit test for JUnit
     @Test
-    public void testSimpleLoad() throws Exception { 
-
-    	long now = System.currentTimeMillis();
-        ICacheElement elem = jcs.getCacheElement( "test1" );
-        assertEquals( "Name wasn't right", "val1", elem.getVal() );
+    public void testSimpleElementRetrieval()throws Exception
+    {
+        jcs.put(name, obj);
+        long now = System.currentTimeMillis();
+        ICacheElement elem = jcs.getCacheElement(name);
+        assertEquals( "Name wasn't right", "testCache1", elem.getCacheName() );
         long diff = now - elem.getElementAttributes().getCreateTime();
         assertTrue( "Create time should have been at or after the call", diff >= 0 );
-    }    
-    
-    	
-    	
+    }
 
-    
 
 }

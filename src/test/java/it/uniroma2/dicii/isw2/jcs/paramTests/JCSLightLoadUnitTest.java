@@ -17,35 +17,30 @@ import junit.framework.TestCase;
 @RunWith(Parameterized.class)
 public class JCSLightLoadUnitTest extends TestCase {
 
-	private static int items = 999;
+	private int items;
 	private JCS jcs;
-    
-    // Test setup class
-    @Before
-    public void setUp() throws Exception {
-    	configure();
-    }
 
     // Configuration test parameters
-    private void configure() throws CacheException {
-        JCS.setConfigFilename( "/TestSimpleLoad.ccf" );
-        jcs = JCS.getInstance( "testCache1" );
-    }
-    
-    // Constructor for the TestSimpleLoad object
-    public JCSLightLoadUnitTest(int items, String expected) {
-    }
-    
-    // Init test items array
+
+
     @Parameters
-    public static Collection<Object[]> data() {
-    	Object[][] data = new Object[][]{ {items, null}, }; 
-        return Arrays.asList(data);
+    public static Collection<Object[]> configure() throws Exception{
+        return Arrays.asList(new Object[][]{
+                {999, JCS.getInstance( "testCache1" )}, {-10,JCS.getInstance( "testCache1")}
+        });
+    }
+    //{1000, JCS.getInstance( "testCache1" )} // questo è il test che fallisce che ho analizzato nel report
+
+    // Constructor for the TestSimpleLoad object
+    public JCSLightLoadUnitTest(int items, JCS expected) {
+        this.items = items;
+        this.jcs = expected;
     }
 
     // A unit test for JUnit
     @Test
-    public void testSimpleLoad() throws Exception {        
+    public void testSimpleLoad() throws Exception {
+        JCS.setConfigFilename( "/TestSimpleLoad.ccf" );
         for ( int i = 1; i <= items; i++ ) {
             jcs.put( i + ":key", "data" + i );
         }
